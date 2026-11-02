@@ -223,6 +223,7 @@ mark.bad { background: var(--mark); color: var(--mark-ink); padding: 0 2px; bord
 .askq { display: grid; gap: 6px; }
 .askq .btn { text-align: left; min-height: 0; padding: 8px 12px; line-height: 1.4; }
 .askq .btn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.foot .credit { display: block; margin-top: 2px; }
 </style>
 
 <div class="app">
@@ -274,7 +275,7 @@ mark.bad { background: var(--mark); color: var(--mark-ink); padding: 0 2px; bord
           <div id="cropBox"></div>
           <p class="reads" id="cardReads"></p>
           <div id="readerBlock" hidden>
-            <div class="reader-row"><button type="button" class="btn" id="readerBtn">Ask Claude to read this crop</button><span class="mark" id="readerChip" tabindex="0">tested on slides</span></div>
+            <div class="reader-row"><button type="button" class="btn" id="readerBtn">Ask Claude to read this crop</button><span class="mark" id="readerChip" tabindex="0" title="The answers here are recorded single reads by Claude Sonnet 5.5 at effort medium (recorded 2026-11-01), one per region. No test measured their accuracy. Each answer shows the region&#x27;s ground truth, where it has one, and whether Claude&#x27;s own call agrees. The slides were chosen where these calls agree best, so that agreement is not an accuracy. The app&#x27;s reader was tested earlier with the same prompt and image layout (the tile beside its 3 x 3 neighbourhood), read by Claude Opus 5.5 agents at medium effort, with the two-model average deciding when Claude was unsure: balanced accuracy 0.825 (95% CI 0.790 to 0.860) on 400 tiles (pre-registered re-test, 2026-10-18, reader_retest/results.md). Later pre-registered tests qualify that number.">about these answers</span></div>
             <p class="recs" id="readerRecs"></p>
             <div id="readerOut" class="msg ai"></div>
           </div>
@@ -315,7 +316,7 @@ mark.bad { background: var(--mark); color: var(--mark-ink); padding: 0 2px; bord
     </div>
   </main>
 
-  <footer class="foot">Evidence for every number: <a href="../../dashboard/reviewgate_atlas.html" target="_blank" rel="noopener">ReviewGate Atlas</a></footer>
+  <footer class="foot">Evidence for every number: <a href="../../dashboard/reviewgate_atlas.html" target="_blank" rel="noopener">ReviewGate Atlas</a><span class="credit">Slides: TCGA, NCI Genomic Data Commons (open access). Tumour outlines: Loeffler and Kather, Manual tumor annotations in TCGA, <a href="https://zenodo.org/records/5320076" target="_blank" rel="noopener">Zenodo record 5320076</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</span></footer>
 </div>
 
 <script>
@@ -1204,7 +1205,6 @@ function showAnswer(x) {
 function initDemo() {
   const el = embedded('data/recorded.json'); if (el) REC = JSON.parse(el.textContent);
   const F = st.M.flags || {};
-  $('readerChip').title = F.claude_reader_accuracy_text || '';
   pickOn = !!(F.claude_phrase_pick && F.claude_phrase_pick_text);
   /* the recorded words the page would send to Claude: those that match no tissue directly */
   const ex = REC.pick.queries.filter((x) => !tissueMatches(x.q).length);
