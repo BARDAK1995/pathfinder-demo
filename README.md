@@ -16,4 +16,9 @@ The frozen-tumour bin is left out, because none of its tiles has a ground truth 
 Ground truth comes from the tumour outlines of Loeffler and Kather, Manual tumor annotations in TCGA, Zenodo 5320076,
 CC BY 4.0. The outlines do not cover all tumour, so a tile far outside an outline is only presumed not tumour.
 
+Zooming into the map loads the slide itself, at up to 0.5 micrometres per pixel (about 20x, the resolution the two
+classifiers read). The images are in `deep/`, one pyramid of 512-pixel JPEG images per slide, cut from the TCGA
+whole-slide images (NCI Genomic Data Commons, open access). The page draws only the images of the area on screen.
+Set the map's opacity to 0 to see the tissue in its own colours.
+
 The page is a demonstration. It is not a diagnostic tool.
